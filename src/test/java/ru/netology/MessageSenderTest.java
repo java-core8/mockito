@@ -1,25 +1,21 @@
 package ru.netology;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import ru.netology.entity.Country;
 import ru.netology.entity.Location;
 import ru.netology.geo.GeoService;
-import ru.netology.geo.GeoServiceImpl;
 import ru.netology.i18n.LocalizationService;
 import ru.netology.i18n.LocalizationServiceImpl;
-import ru.netology.sender.MessageSender;
 import ru.netology.sender.MessageSenderImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+public class MessageSenderTest {
 
     @Test
     @DisplayName("Testing RUS ip")
@@ -34,7 +30,7 @@ public class MainTest {
 
         Map<String, String> headers = new HashMap<>();
         headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, "172.44.183.00");
-        MessageSender messageSender = new MessageSenderImpl(geoService, localizationServiceSpy);
+        ru.netology.sender.MessageSender messageSender = new MessageSenderImpl(geoService, localizationServiceSpy);
         String expected = "Добро пожаловать";
         assertEquals(expected, messageSender.send(headers));
     }
@@ -52,11 +48,8 @@ public class MainTest {
 
         Map<String, String> headers = new HashMap<>();
         headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, "96.44.183.00");
-        MessageSender messageSender = new MessageSenderImpl(geoService, localizationServiceSpy);
+        ru.netology.sender.MessageSender messageSender = new MessageSenderImpl(geoService, localizationServiceSpy);
         String expected = "Welcome";
         assertEquals(expected, messageSender.send(headers));
     }
-
-
-
 }
